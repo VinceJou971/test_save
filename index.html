@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Carte avec Leaflet</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aptos:wght@400;700&display=swap">
+
+  <style>
+    #map-container {
+      position: relative;
+    }
+    #map {
+      width: 100%;
+      height: 34em;
+    }
+    #info-container {
+      margin-top: 1em;
+      display: flex;
+      overflow-x: auto;
+    }
+    .marker-box {
+      flex: 0 0 auto;
+      flex-basis: 9.5em;
+      height: 10em;
+      background-color: #f0f0f0;
+      margin-right: 10px;
+      padding: 10px;
+      box-sizing: border-box;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .marker-box:hover {
+      opacity: 0.8;
+    }
+    .marker-box-expanded {
+      width: 20em;
+      height: 20em;
+    }
+    .marker-image {
+      max-width: 7em;
+      max-height: 7em;
+      margin-bottom: 0.5em;
+    }
+    .close-button {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: green;
+      padding: 0em;
+      border-radius: 0 0 5px 5px;
+      cursor: pointer;
+      color: white;
+      text-align: center;
+    }
+    .filter-buttons {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .filter-button {
+      margin: 0 10px;
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .description {
+      overflow-y: auto; /* Ajoutez la barre de défilement verticale lorsque le texte dépasse */
+      max-height: 10em; /* Réglez la hauteur maximale de la boîte pour que la barre de défilement apparaisse */
+    }
+
+    /* Ajout de styles spécifiques pour chaque bouton */
+    #all-button {
+      background-color: #CCCCCC; /* Gris */
+    }
+    #tourisme-button {
+      background-color: #5FA2E6; /* Bleu */
+    }
+    #commerce-button {
+      background-color: #BB0000; /* Rouge */
+    }
+    #cartonnerie-button {
+      background-color: #3A8C17; /* Vert */
+    }
+
+    .banner {
+      background-color: #f0f0f0;
+      padding: 1em;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      width: 8em; /* Ajustez la taille selon vos besoins */
+      height: auto; /* Pour conserver les proportions */
+      margin-right: 20px;
+    }
+
+    .title {
+      font-family: 'Aptos', sans-serif;
+      font-size: 2em;
+      font-weight: bold;
+      margin: 0;
+      text-align: center;
+      flex-grow: 0.8; /* Pour pousser le titre vers le milieu */
+    }
+    
+    @media screen and (max-width: 768px) {
+      #info-container {
+        flex-direction: column; /* Changement de la direction en colonne */
+        align-items: center; /* Centrage horizontal des blocs */
+      }
+      .marker-box {
+        margin-bottom: 20px; /* Ajout d'un espace entre les blocs */
+      }
+    }
+
+
+  </style>
+</head>
+<body>
+
+
+<div id="map-container">
+  <div class="banner">
+    <img src="icones/logo_qcd.svg" alt="Logo" class="logo">
+    <h1 class="title">PROGRAMMES EUROPÉENS TERRITORIALISÉS</h1>
+</div>
+
+  <div id="map"></div>
+  <br>
+  <div class="filter-buttons">
+    <button class="filter-button" id="all-button">Tout</button>
+    <button class="filter-button" id="tourisme-button">Tourisme</button>
+    <button class="filter-button" id="commerce-button">Commerce</button>
+    <button class="filter-button" id="cartonnerie-button">Cartonnerie</button>
+  </div>
+  <div id="info-container"></div>
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  var map = L.map('map').setView([47.9975, -4.0975], 9);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  var markers = [];
+  var infoBoxes = [];
+
+
+// Définition des icônes personnalisées
+var tourismeIcon = L.icon({
+    iconUrl: 'icones/icone_bleu.png',
+    iconSize: [32, 32], // Taille de l'icône
+    iconAnchor: [16, 32], // Point d'ancrage de l'icône (en bas au centre)
+    popupAnchor: [0, -32] // Point d'ancrage de la popup (au-dessus de l'icône)
+});
+
+var commerceIcon = L.icon({
+    iconUrl: 'icones/icone_rouge.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
+
+var cartonnerieIcon = L.icon({
+    iconUrl: 'icones/icone_verte.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
+
+// Fonction pour obtenir les options de style en fonction de la catégorie
+function getMarkerOptions(categorie) {
+  switch (categorie) {
+    case 'Tourisme':
+      return { icon: tourismeIcon };
+    case 'Commerce':
+      return { icon: commerceIcon };
+    case 'Cartonnerie':
+      return { icon: cartonnerieIcon };
+    default:
+      return {}; // Options par défaut
+  }
+}
+
+
+fetch('table.json')
+  .then(response => response.json())
+  .then(jsonData => {
+    jsonData.lieux.forEach((lieu, index) => {
+      var markerOptions = getMarkerOptions(lieu.categorie); // Obtenir les options de style en fonction de la catégorie
+      var marker = L.marker([lieu.latitude, lieu.longitude], markerOptions).addTo(map);
+      markers.push(marker);
+      var infoBox = createMarkerBox(lieu, index);
+      infoBoxes.push(infoBox);
+      document.getElementById('info-container').appendChild(infoBox);
+      marker.on('click', function() {
+        closeAllBoxes();
+        map.setView(marker.getLatLng(), 9);
+        marker.openPopup();
+        toggleMarkerBox(infoBox);
+        
+        // Scroll to the corresponding box in the info-container
+        var infoBoxId = 'info-box-' + index;
+        var infoBoxElement = document.getElementById(infoBoxId);
+        if (infoBoxElement) {
+          infoBoxElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    });
+  });
+
+
+function createMarkerBox(lieu, index) {
+  var box = document.createElement('div');
+  var infoBoxId = 'info-box-' + index;
+  box.id = infoBoxId;
+  box.className = 'marker-box';
+  box.dataset.category = lieu.categorie;
+  box.innerHTML = `
+    <img src="${lieu.image}" alt="${lieu.nom}" class="marker-image">
+    <span>${lieu.nom}</span>
+    <p class="description" style="display:none;"> <b>Voici la description :</b> <br> <i>${lieu.description}<i></p>
+  `;
+  box.addEventListener('click', function(event) {
+    event.stopPropagation();
+    closeAllBoxes();
+    map.setView(markers[index].getLatLng(), 9);
+    markers[index].openPopup();
+    toggleMarkerBox(box);
+  });
+  return box;
+}
+  function toggleMarkerBox(box) {
+    var isExpanded = box.classList.contains('marker-box-expanded');
+
+    infoBoxes.forEach(infoBox => {
+      infoBox.classList.remove('marker-box-expanded');
+      var description = infoBox.querySelector('p');
+      description.style.display = 'none';
+      var closeButton = infoBox.querySelector('.close-button');
+      if (closeButton) {
+        closeButton.remove();
+      }
+    });
+
+    if (!isExpanded) {
+      box.classList.add('marker-box-expanded');
+      var description = box.querySelector('p');
+      description.style.display = 'block';
+
+      var closeButton = document.createElement('div');
+      closeButton.className = 'close-button';
+      closeButton.textContent = 'Fermer';
+      closeButton.addEventListener('click', function(event) {
+        event.stopPropagation();
+        toggleMarkerBox(box);
+      });
+      box.appendChild(closeButton);
+    }
+  }
+
+  function closeAllBoxes() {
+    infoBoxes.forEach(box => {
+      if (box.classList.contains('marker-box-expanded')) {
+        toggleMarkerBox(box);
+      }
+    });
+  }
+
+
+
+  // Filter buttons
+  var allButton = document.getElementById('all-button');
+  var tourismeButton = document.getElementById('tourisme-button');
+  var commerceButton = document.getElementById('commerce-button');
+  var cartonnerieButton = document.getElementById('cartonnerie-button');
+
+  allButton.addEventListener('click', function() {
+    infoBoxes.forEach(box => {
+      box.style.display = 'flex'; // Affiche toutes les boîtes
+    });
+
+    markers.forEach(marker => {
+      marker.setOpacity(1); // Rétablit l'opacité de tous les marqueurs
+    });
+  });
+
+  tourismeButton.addEventListener('click', function() {
+    infoBoxes.forEach((box, index) => {
+      var category = box.dataset.category;
+      if (category === 'Tourisme') {
+        box.style.display = 'flex'; // Affiche la boîte si elle appartient à la catégorie 'Tourisme'
+        markers[index].setOpacity(1); // Affiche le marqueur correspondant
+      } else {
+        box.style.display = 'none'; // Masque la boîte si elle n'appartient pas à la catégorie 'Tourisme'
+        markers[index].setOpacity(0); // Masque le marqueur correspondant
+      }
+    });
+  });
+
+  commerceButton.addEventListener('click', function() {
+    infoBoxes.forEach((box, index) => {
+      var category = box.dataset.category;
+      if (category === 'Commerce') {
+        box.style.display = 'flex'; // Affiche la boîte si elle appartient à la catégorie 'Commerce'
+        markers[index].setOpacity(1); // Affiche le marqueur correspondant
+      } else {
+        box.style.display = 'none'; // Masque la boîte si elle n'appartient pas à la catégorie 'Commerce'
+        markers[index].setOpacity(0); // Masque le marqueur correspondant
+      }
+    });
+  });
+
+  cartonnerieButton.addEventListener('click', function() {
+    infoBoxes.forEach((box, index) => {
+      var category = box.dataset.category;
+      if (category === 'Cartonnerie') {
+        box.style.display = 'flex'; // Affiche la boîte si elle appartient à la catégorie 'Cartonnerie'
+        markers[index].setOpacity(1); // Affiche le marqueur correspondant
+      } else {
+        box.style.display = 'none'; // Masque la boîte si elle n'appartient pas à la catégorie 'Cartonnerie'
+        markers[index].setOpacity(0); // Masque le marqueur correspondant
+      }
+    });
+  });
+
+</script>
+
+</body>
+</html>

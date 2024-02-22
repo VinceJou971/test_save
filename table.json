@@ -1,0 +1,108 @@
+{
+  "lieux": [
+    {
+      "nom": "Point A",
+      "latitude": 47.9975,
+      "longitude": -4.0975,
+      "image": "images/fleche_nord.jpg",
+      "description": "Description du point A : Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!..",
+      "categorie": "Tourisme"
+    },
+    {
+      "nom": "Point B",
+      "latitude": 48.0964,
+      "longitude": -4.3364,
+      "image": "images/logo_sigma.png",
+      "description": "Description du point B :Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!.",
+      "categorie": "Commerce"
+    },
+    {
+      "nom": "Point C",
+      "latitude": 47.8343,
+      "longitude": -4.3861,
+      "image": "images/legende_carte_essence_lvl3_2.png",
+      "description": "Description du point C :Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!",
+      "categorie": "Cartonnerie"
+    },
+    {
+      "nom": "Point D",
+      "latitude": 48.5,
+      "longitude": -4.0,
+      "image": "images/lizmap.png",
+      "description": "Description du point D :Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!",
+      "categorie": "Tourisme"
+    },
+    {
+      "nom": "Point E",
+      "latitude": 47.75,
+      "longitude": -3.75,
+      "image": "images/7 EPCI.jpg",
+      "description": "Description du point E :Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!",
+      "categorie": "Commerce"
+    },
+    {
+      "nom": "Point F",
+      "latitude": 48.25,
+      "longitude": -3.5,
+      "image": "images/python.png",
+      "description": "Description du point F :Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!",
+      "categorie": "Cartonnerie"
+    },
+    {
+      "nom": "Point G",
+      "latitude": 48.0,
+      "longitude": -3.0,
+      "image": "images/pgadmin_4_postgresql.png",
+      "description": "Description du point G :Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!",
+      "categorie": "Tourisme"
+    },
+    {
+      "nom": "Point H",
+      "latitude": 47.5,
+      "longitude": -4.5,
+      "image": "images/qgis.jpg",
+      "description": "Description du point H :Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!",
+      "categorie": "Commerce"
+    },
+    {
+      "nom": "Point I",
+      "latitude": 48.75,
+      "longitude": -4.25,
+      "image": "images/382841549_336213665598519_6220746470814008620_n.jpg",
+      "description": "Description du point I :Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!",
+      "categorie": "Cartonnerie"
+    },
+    {
+      "nom": "Point J",
+      "latitude": 49.25,
+      "longitude": -5.0,
+      "image": "images/train.jpg",
+      "description": "Description du point G :Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!",
+      "categorie": "Tourisme"
+    },
+    {
+      "nom": "Point K",
+      "latitude": 50.5,
+      "longitude": -4.5,
+      "image": "images/train_3.jpg",
+      "description": "Description du point H :Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!",
+      "categorie": "Commerce"
+    },
+    {
+      "nom": "Point L",
+      "latitude": 46.75,
+      "longitude": -4.25,
+      "image": "images/train_2.jpg",
+      "description": "Description du point I :Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!",
+      "categorie": "Cartonnerie"
+    },
+    {
+      "nom": "Point M",
+      "latitude": 44.75,
+      "longitude": -4.25,
+      "image": "images/train_5.jpg",
+      "description": "Description du point I :Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit magni et illum neque. Et doloremque natus distinctio. Architecto dolorem eos at ipsam fuga, consequatur eum voluptatum expedita autem, illo adipisci!",
+      "categorie": "Tourisme"
+    }
+  ]
+}
